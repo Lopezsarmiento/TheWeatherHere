@@ -35,9 +35,9 @@ async function success(pos) {
         const api_url = `weather/${lat},${lon}`;
         const response = await fetch(api_url);
         const json = await response.json();
-        console.log(json);
         weather = json.weather.currently;
         const temperature = weather.temperature.toFixed(1);
+        document.getElementById('timezone').textContent = json.weather.timezone;
         document.getElementById('summary').textContent = weather.summary;
         document.getElementById('temp').textContent = temperature;
 
