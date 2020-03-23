@@ -9,7 +9,7 @@ require('dotenv').config();
 //env variables
 //console.log(process.env);
 
-const port = 9000;
+const port = process.env.PORT || 9000;
 const file = './req_resFile.csv';
 const logger = fs.createWriteStream(file, {
 	flags: 'a' // 'a' means appending (old data will be preserved)
