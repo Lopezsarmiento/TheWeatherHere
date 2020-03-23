@@ -3,7 +3,7 @@
 getData();
 
 async function getData() {
-    const response = await fetch('/api');
+    const response = await fetch('/list/api');
     const data = await response.json();
     console.log(data);
 

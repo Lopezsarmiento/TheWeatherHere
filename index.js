@@ -22,11 +22,23 @@ app.use(express.json({ limit: '50mb' }));
 
 // Create Database
 const database = new Datastore('database.db');
+const homedatabase = new Datastore('homedatabase.db');
 database.loadDatabase();
+homedatabase.loadDatabase();
 
 // Routes
 app.get('/api', (request, response) => {
 	database.find({}, (err, data) => {
+		if (err) {
+			response.end();
+			return;
+		}
+		response.json(data);
+	});
+});
+
+app.get('/list/api', (request, response) => {
+	homedatabase.find({}, (err, data) => {
 		if (err) {
 			response.end();
 			return;
@@ -41,6 +53,27 @@ app.post('/api', (request, response) => {
 	const timestamp = Date.now();
 	data.timestamp = timestamp;
 	database.insert(data);
+
+	response.json(data);
+
+	const fileInfo = {
+		request: JSON.stringify(data),
+		response: {
+			status: 'success',
+			latitude: data.lat,
+			longitude: data.lon
+		}
+	}
+
+	logger.write(JSON.stringify(fileInfo));
+});
+
+app.post('/index/api', (request, response) => {
+	console.log('I have a request!!');
+	const data = request.body;
+	const timestamp = Date.now();
+	data.timestamp = timestamp;
+	homedatabase.insert(data);
 
 	response.json(data);
 

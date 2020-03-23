@@ -62,7 +62,7 @@ function setup() {
 			body: JSON.stringify(postdata) // body data type must match "Content-Type" header
 		}
 
-		const response = await fetch('/api', options);
+		const response = await fetch('/index/api', options);
 		const data = await response.json();
 		console.log(`here is the response: ${JSON.stringify(data)}`);
 	}
