@@ -44,10 +44,10 @@ async function success(pos) {
         air = json.air_quality.results[0].measurements[0];
 
         if (air) {
-            document.getElementById('aq_param').textContent = air.parameter;
-            document.getElementById('aq_value').textContent = air.value;
-            document.getElementById('aq_units').textContent = air.unit;
-            document.getElementById('aq_date').textContent = air.lastUpdated;
+            const airDiv = document.getElementById('air');
+            const airParagraph = document.createElement('p');
+            airParagraph.textContent = `The concentration of particule matter (${air.parameter}) is ${air.value} ${air.units} ${air.units} last read on ${air.lastUpdated}`;
+            airDiv.append(airParagraph);
         }
 
     } catch (error) {
